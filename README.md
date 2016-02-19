@@ -30,13 +30,13 @@ Its also shows the calories count using a **Radial Progress Chart**.
 * The app is fully responsive and works on devices of all sizes.
 
 * iPhone
-![iPhone](https://github.com/Pooja0131/FEND-HealthTracker/blob/master/screenshots/iPhone.png?raw=true "iPhone Screenshot")
+![iPhone](https://github.com/Pooja0131/FEND-HealthTracker-Project5b/blob/master/screenshots/iPhone.png?raw=true "iPhone Screenshot")
 
 * Laptop
-![Laptop](https://github.com/Pooja0131/FEND-HealthTracker/blob/master/screenshots/Laptop.png?raw=true "Laptop Screenshot")
+![Laptop](https://github.com/Pooja0131/FEND-HealthTracker-Project5b/blob/master/screenshots/Laptop.png?raw=true "Laptop Screenshot")
 
 * iPad
-![iPad](https://github.com/Pooja0131/FEND-HealthTracker/blob/master/screenshots/iPad.png?raw=true "iPad Screenshot")
+![iPad](https://github.com/Pooja0131/FEND-HealthTracker-Project5b/blob/master/screenshots/iPad.png?raw=true "iPad Screenshot")
 
 
 
