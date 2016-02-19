@@ -1,17 +1,13 @@
 # Calorie Counter
-
 An app that tracks the user's calorie intake. Typing food names into the search field displays a list of matching foods. Users will be able to select an item from the list, and the item will be added to the list of foods the user is tracking. The total calorie count will also update to reflect the new daily total.
 
-----------------------------------------------------------------------
 
 ## To Start
+* Click http://pooja0131.github.io/FEND-HealthTracker/dist/index.html. Enjoy!
 
-* Click http://pooja0131.github.io/FEND-HealthTracker/dist/index.html . Enjoy!
 
-----------------------------------------------------------------------
 
 ### Application Features
-
 * This project uses the **Backbone.js framework, Backbone-Localstorage, Nutritionix API** to track calories consumed and the **Edamam API** to provide similar recipe suggestions.
 Its also shows the calories count using a **Radial Progress Chart**.
 
@@ -27,19 +23,25 @@ Its also shows the calories count using a **Radial Progress Chart**.
 
 * The search functionality also returns a list of Similar Recipe suggestions along with their calories using Edamam database.
 
-----------------------------------------------------------------------
+
 
 #### Screenshots
 
 * The app is fully responsive and works on devices of all sizes.
 
+* iPhone
+![iPhone](https://github.com/Pooja0131/FEND-HealthTracker/blob/master/screenshots/iPhone.png?raw=true "iPhone Screenshot")
+
+* Laptop
+![Laptop](https://github.com/Pooja0131/FEND-HealthTracker/blob/master/screenshots/Laptop.png?raw=true "Laptop Screenshot")
+
+* iPad
+![iPad](https://github.com/Pooja0131/FEND-HealthTracker/blob/master/screenshots/iPad.png?raw=true "iPad Screenshot")
 
 
 
-----------------------------------------------------------------------
 
 ##### Resources used:
-
 * Backbone.js
 * Underscore.js
 * Backbone localStorage
