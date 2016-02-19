@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Tracker</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="../dist/css/style.min.css"> -->
+  <!-- build:css css/style.css -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- endbuild -->
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Merriweather+Sans' rel='stylesheet' type='text/css'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.0/d3.js"></script>
+</head>
+
+<body>
+  <!-- Calories Tracker App -->
+  <section class="calorie-tracker-app">
+    <div class="app-heading hidden">
+      <h1 class="app-header text-center">Calorie Counter <button id="edit-button">Edit About Me!</button></h1>
+    </div>
+    <!-- About You Section -->
+    <div class="information hidden">
+      <div class="calculate-calories-heading">
+        <h2 class="how-many-calories">How many calories should you eat? </h2>
+        <p class="step-heading"> Find out in two easy steps</p>
+      </div>
+      <!-- Form1 -->
+      <div class="BMR-form hidden">
+        <form class="about-you">
+          <h4 class="about-you-title"><b>1. About You</b></h4><br><br>
+          <label >Height</label><br>
+          <input id="feet" type="number" name="feet" autocomplete="off" autofocus/>
+          <span class="unit">
+                <abbr title="feet">ft</abbr>
+          </span>
+          <input id="inch" type="number" name="inches" autocomplete="off"/>
+          <span class="unit">
+                <abbr title="inches">in</abbr>
+          </span><br><br>
+          <label for="lbs">Weight</label><br>
+          <input id="lbs" type="number" name="pounds" autocomplete="off"/>
+          <span class="unit">
+                <abbr title="pounds">lbs</abbr>
+          </span><br><br>
+          <label for="age">Age</label><br>
+          <input id="age" type="number" name="age" autocomplete="off"/><br><br>
+          <label for="gender">Gender</label><br>
+          <select id="gender" name="select-gender">
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select><br><br>
+          <button id="about-you-button">Next</button>
+        </form>
+      </div>
+      <!-- Form2 -->
+      <div class="activity-level hidden">
+        <h4 class="activity-title"><b>2. What best describes your daily activity level?</b></h4><br><br><br>
+        <form id="activity-level-form" class="activity-group">
+          <div class="radio-button">
+            <input type="radio" value="SEDENTARY" name="activity-level" id="sedentary">
+            <b>Sedentary</b><br>
+            <span><i>(Little to no exercise)</i></span><br><br>
+          </div>
+          <div class="radio-button">
+            <input type="radio" value="LIGHT" name="activity-level" id="light">
+            <b>Lightly Active</b><br>
+            <span><i>(Light exercise/sports 1-3 days a week)</i></span><br><br>
+          </div>
+          <div class="radio-button">
+            <input type="radio" value="MEDIUM" name="activity-level" id="medium">
+            <b>Modoratly Active</b><br>
+            <span><i>(Moderate exercise/sports 3-5 days a week)</i></span><br><br>
+          </div>
+          <div class="radio-button">
+            <input type="radio" value="HEAVY" name="activity-level" id="heavy">
+            <b>Very Active</b><br>
+            <span><i>(Hard exercise/sports 6-7 days a week)</i></span><br><br>
+          </div>
+          <div class="radio-button">
+            <input type="radio" value="EXTRA" name="activity-level" id="extra">
+            <b>Extra Active</b><br>
+            <span><i>(Very hard exercise/sports and physical job or 2x training)</i></span><br><br>
+          </div>
+        </form>
+        <table class="recommended-calories">
+        </table>
+        <button id="final-about-you-button">Lets count calories</button>
+      </div>
+    </div>
+
+    <!-- Calories Counting Page -->
+    <div class="add-food-box hidden">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Food search section -->
+          <section class="search-box">
+            <input id="food-search-bar" class="food-input-box" placeholder="What did you eat? Search here for calorie count..." type="text" />
+            <button id="clear-button" class="btn bottom-spacing">Clear Results</button>
+          </section>
+
+          <!-- Total calories and recommended calories count -->
+          <table class="total-calories">
+          </table>
+          <table class="allowed-calories">
+          </table>
+
+          <div class="loader hidden">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <!-- Radial progress chart section -->
+        <div class="col-md-6">
+          <div class="container">
+            <div class="calories"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Details about food item to be added -->
+          <div class="food-table hidden">
+            <div class="food-table-box">
+              <h5 class="data-header"><b>Serving<br>Size</b></h5>
+              <p id="serving-size" class="food-info"></p>
+            </div>
+            <div class="food-table-box">
+              <h5 class="data-header"><b>Calories<br>per Serving</b></h5>
+              <p id="serving-calories" class="food-info"></p>
+            </div>
+            <div class="food-table-box">
+              <h5 class="data-header"><b><br>Servings</b></h5>
+              <p id="serving-box" class="food-info">
+                <input name="servings" id="num-servings" class="food-input" type="text" value="1">
+              </p>
+            </div>
+            <div class="food-table-box">
+              <h5 class="data-header"><b>Total<br>Calories</b></h5>
+              <p id="calories-eaten" class="food-info"></p>
+            </div>
+            <div class="food-table-box">
+              <input class="add-button" type="submit" value="Add Food" id="add-food">
+            </div>
+          </div>
+
+          <!-- Search results -->
+          <div class="search-results hidden">
+            <h3 class="heading">Search Results</h3>
+            <table class="results-list">
+            </table>
+            <div class="list-footer">
+              <a target='_blank' href="http://www.nutritionix.com/api"><img src="img/nutritionixAPI-logo.png" alt="Nutritionix API Logo">
+              </a>
+            </div>
+          </div>
+
+          <!-- List of foods eaten -->
+          <h3 class="eaten-food-heading hidden">Foods Eaten</h3>
+          <table class="user-selected-food hidden">
+            <thead class="list-head">
+              <tr>
+                <th class="name"> Food Eaten </th>
+                <th class="servings"> Servings taken </th>
+                <th class="calories"> Calories </th>
+                <th class="remove"> Remove </th>
+              </tr>
+            </thead>
+            <tbody class="food-list"></tbody>
+          </table>
+        </div>
+
+        <!-- Similar recipe suggestions -->
+        <div class="recipe-div hidden col-md-6">
+          <h3 class="recipe-heading">Similar Recipe Suggestions</h3>
+          <table class="recipe-table">
+          </table>
+          <div class="list-footer">
+            <a target='_blank' href="https://developer.edamam.com/recipe-api"><img src="img/edamamAPI-logo.png" width="150" height="35" alt="Edamam API Logo">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results List item template -->
+  <script type="text/template" id="results-template">
+    <td>
+      <p class="results-name"><b><%= name %></b></p>
+      <p class="results-details">Serving size:<i><%= serveSize %></i></p>
+    </td>
+    <td class="results-cals"><%= calories %> calories</td>
+    <td class="food-select-button">
+      <input class="results-add-button" type="image" src="img/correct-button.png" alt="Add" width="20" height="20" value="Add" title="Add Food">
+    </td>
+  </script>
+
+  <!-- Food item template -->
+  <script type="text/template" id="user-selected-template">
+    <td class="eatenFoodName">
+      <p class="food-name"><b><%= name %></b></p>
+      <p class="food-details">Serving size: <%= serveSize %>
+    </td>
+    <td class="food-servings"><%= servings %></td>
+    <td class="food-calories"><%= calories%> calories</td>
+    <td class="remove">
+      <input class="destroy" type="image" src="img/incorrect-button.png" alt="Remove" width="20" height="20" value="Remove" title="Remove Food">
+    </td>
+  </script>
+
+  <!-- Calorie Count template -->
+  <script type="text/template" id="calories-template">
+    <tr class="table-end">
+      <td colspan="2" class="calorie-count">
+        <h4>Total consumed calories : </h4>
+      </td>
+      <td class="total-calories">
+        <h4 class="caloriesValue"><%= totalCalories %></h4>
+      </td>
+    </tr>
+  </script>
+
+  <!-- Allowed Calorie template -->
+  <script type="text/template" id="allowed-calories-template">
+    <tr class="allowed-table-end">
+      <td colspan="2" class="calorie-allowed">
+        <h4>Total recommended calories : </h4>
+      </td>
+      <td class="total-allowed-calories">
+        <h4 class="allowedCaloriesValue"><%= totalAllowedCalories %></h4>
+      </td>
+    </tr>
+  </script>
+
+  <!-- Recommended Calorie template -->
+  <script type="text/template" id="recommended-calories-template">
+    <tr class="recommended-table-end">
+      <td colspan="2" class="calorie-recommended">
+        <h4>To <b>maintain</b> your current weight you should eat <b><i><%= totalRecommendedCalories %></i></b> calories per day</h4>
+      </td>
+    </tr>
+  </script>
+
+  <!-- Recipe template -->
+  <script type="text/template" id="recipe-template">
+    <!-- <tr> -->
+    <td class="recipe-image">
+      <img class="photo-loc img-responsive" src="<%= recipeImage %>" width="100" height="100" />
+    </td>
+    <td class="recipe-name">
+      <a target='_blank' href="  <%= recipeLink %>  "><b><%= recipeName %></b></a>
+    </td>
+    <td>
+      <p class="food-details"><%= recipeCalories %> calories</p>
+    </td>
+  </script>
+
+  <!-- js libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.2/backbone-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+  <!-- app scripts -->
+  <!-- <script src="../dist/js/production.min.js"></script> -->
+  <!-- build:js js/site.js -->
+  <!-- radial progress chart library -->
+  <script src="js/lib/radial-progress-chart.min.js"></script>
+  <script src="js/models/food.js"></script>
+  <script src="js/collections/selectedFoodCollection.js"></script>
+  <script src="js/collections/resultCollection.js"></script>
+  <script src="js/views/selectedFoodView.js"></script>
+  <script src="js/views/foodResultView.js"></script>
+  <script src="js/views/appView.js"></script>
+  <script src="js/views/app.js"></script>
+  <!-- endbuild -->
+</body>
+
+</html>
