@@ -3,7 +3,14 @@ An app that tracks the user's calorie intake. Typing food names into the search 
 
 
 ## To Start
-* Click http://pooja0131.github.io/FEND-HealthTracker/dist/index.html. Enjoy!
+* Clone repository using command `git clone https://github.com/Pooja0131/FEND-HealthTracker-Project5b.git`
+* Install all required components (bootstrap, jquery, backbone, D3, jQuery, underscore, backbone-localstorage).
+* Install all required grunt modules (used to minify images, css, html and concatenated js files).
+* Start app from dist folder by running index.html in a web browser.
+
+OR
+
+* Click http://pooja0131.github.io/FEND-HealthTracker-Project5b/dist/index.html. Enjoy!
 
 
 
