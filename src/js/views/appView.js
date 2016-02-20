@@ -95,7 +95,6 @@ app.AppView = Backbone.View.extend({
       totalRecommendedCalories: cal
     }));
 
-    this.updateRadar();
     return false;
   },
 
@@ -112,6 +111,7 @@ app.AppView = Backbone.View.extend({
       $('.user-selected-food').removeClass('hidden');
     }
     $('.food-input-box').focus();
+    this.updateRadar();
   },
 
   // Creating radial progress chart using constructors
@@ -273,16 +273,17 @@ app.AppView = Backbone.View.extend({
     $('.recipe-table').empty();
     $('.search-results').addClass('hidden');
     $('.recipe-div').addClass('hidden');
-    $('.loader').removeClass('hidden');
+    // $('.loader').removeClass('hidden');
     var searchTerm = $('#food-search-bar').val();
 
     //if there is no value in search bar append the message
     if ((searchTerm === null || searchTerm === "") && e.which === ENTER_KEY) {
       var message = '<h4 class="no-results">PLEASE ENTER SOMETHING!<br>';
       $('.search-box').append(message);
-      $('.loader').addClass('hidden');
+      // $('.loader').addClass('hidden');
     //if enter key and there is a value in the search bar
     } else if (e.which === ENTER_KEY && searchTerm) {
+       $('.loader').removeClass('hidden');
       $('.search-results').removeClass('hidden');
       $('.recipe-div').removeClass('hidden');
       $('.no-results').hide();
@@ -338,6 +339,9 @@ app.AppView = Backbone.View.extend({
     var cal;
     var searchTerm = $('#food-search-bar').val();
     var url = 'https://api.edamam.com/search?q=' + searchTerm + '&app_id=62b26d1f&app_key=2b8f1a0bdbc896e3542e3aaa98093f10';
+    var recipeRequestTimeout = setTimeout(function() {
+              $('.recipe-table').append('<p> Failed to get Edamam data. Sorry! </p>');
+        }, 9000);
     $.ajax({
       method: 'GET',
       url: url,
@@ -362,6 +366,7 @@ app.AppView = Backbone.View.extend({
           var message = '<h4 class="no-results">NO RESULTS FOUND.<br>';
           $('.recipe-table').prepend(message);
         }
+        clearTimeout(recipeRequestTimeout);
       },
       //If error occurred, append error message
       error: function(jqXHR, status, errorThrown) {
